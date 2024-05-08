@@ -1,6 +1,38 @@
+using Redirector;
+using Microsoft.Extensions.Options;
+
+
+using MongoDB.Driver;
+using MongoDB.Bson;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var mongoDBSettings = builder.Configuration.GetSection("RedirectorMongoDB").Get<MongoDBSettings>();
+
+
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{ 
+  return new MongoClient(mongoDBSettings!.ConnectionURI);
+});
+builder.Services.AddSingleton<IMongoCollection<BsonDocument>>(sp =>
+{
+  var client = sp.GetRequiredService<IMongoClient>();
+  var database = client.GetDatabase(mongoDBSettings!.DatabaseName);
+  return database.GetCollection<BsonDocument>(mongoDBSettings.CollectionName);
+});
+
+//Register ReturnsNotFoundFeature
+builder.Services.AddTransient<The_App_Responses_404_Not_Found_Middleware>();
+// Attach ReturnsNotFoundFacadeForMongoDB
+builder.Services.AddScoped<IRedirectRulesRepository, RedirectRulesRepository>();
+
+// Attach ReturnsNotFoundFacadeForHttp 
+builder.Services.AddScoped<ISupportedHttpRequest, SupportedHttpRequest>();
+
+// Add the dependency from IHttpContextAccessor
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -19,7 +51,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+// Attach ReturnsNotFoundFeature
+app.UseMiddleware<The_App_Responses_404_Not_Found_Middleware>();
+
+
 
 app.MapControllers();
 
 app.Run();
+public partial class Program { }
