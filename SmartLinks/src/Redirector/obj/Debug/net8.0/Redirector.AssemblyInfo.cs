@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Redirector")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9f5cd3d06e145eacc89b54aa0855da446190e35")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e6ca4dfc797de48f41e63b2e815eaac94c49fc5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Redirector")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Redirector")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
