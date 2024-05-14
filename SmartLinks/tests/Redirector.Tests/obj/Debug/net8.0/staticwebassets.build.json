@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "PPTg2qStOBoHflhMMie/Rg9otxWUMXqh4cDb4p2N5R0=",
+  "Source": "Redirector.Tests",
+  "BasePath": "_content/Redirector.Tests",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "/home/darya/Documents/Projects/SmartLinx/SmartLinks/src/Redirector/Redirector.csproj",
+      "Version": 2,
+      "Source": "Redirector",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
