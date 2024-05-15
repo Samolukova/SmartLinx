@@ -26,8 +26,9 @@ public class RedirectRulesRepository(IMongoCollection<BsonDocument> collection)
     {
         if(document == null)
         {
-          FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("slug", smartLink);
-          document = await collection.Find(filter).FirstOrDefaultAsync();
+         FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("slug", smartLink);
+          var result = await collection.Find(filter).FirstOrDefaultAsync();
+          document = result != null && result.GetValue("state", "published") != "deleted" ? result : null;
         }
     }
 }

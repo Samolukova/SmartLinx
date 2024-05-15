@@ -154,6 +154,42 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Приложение отвечает 404 Not Found ошибкой на GET запрос, если для запрашиваемой у" +
+            "мной ссылки правила редиректа были помечены как удаленные")]
+        [Xunit.TraitAttribute("FeatureTitle", "Как пользователь, я могу попытаться открыть в браузере умную ссылку, для которой " +
+            "не определены правила редиректа, и увидеть 404 ошибку, чтобы понять, что такой у" +
+            "мной ссылки не существует.")]
+        [Xunit.TraitAttribute("Description", "Приложение отвечает 404 Not Found ошибкой на GET запрос, если для запрашиваемой у" +
+            "мной ссылки правила редиректа были помечены как удаленные")]
+        public void ПриложениеОтвечает404NotFoundОшибкойНаGETЗапросЕслиДляЗапрашиваемойУмнойСсылкиПравилаРедиректаБылиПомеченыКакУдаленные()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Приложение отвечает 404 Not Found ошибкой на GET запрос, если для запрашиваемой у" +
+                    "мной ссылки правила редиректа были помечены как удаленные", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 14
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 15
+    testRunner.Given("Для умной ссылки /deleted правила редиректа были помечены как удаленные", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+#line hidden
+#line 16
+    testRunner.When("Клиент отправляет GET-запрос на url /deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
+#line hidden
+#line 17
+    testRunner.Then("Приложение отвечает 404 Not Found ошибкой", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

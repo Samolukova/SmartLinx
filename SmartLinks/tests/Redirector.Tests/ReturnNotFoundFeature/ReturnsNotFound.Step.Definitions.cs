@@ -2,19 +2,19 @@ namespace Redirector.Tests;
 
 using TechTalk.SpecFlow;
 using Microsoft.AspNetCore.Mvc.Testing;
+   
 using MongoDB.Driver;
 using MongoDB.Bson;
 
 [Binding]
 public sealed class NotFoundStepDefinitions
 {
-  // Функция: Приложение отвечает 404 Not Found ошибкой на GET запрос,
-  // если для запрашиваемой умной ссылки не определены правила редиректа
   readonly WebApplicationFactory<Program> _factory;
   readonly HttpClient _client; 
 
   HttpResponseMessage? _response;
-  readonly IMongoCollection<BsonDocument> _smartLinksCollection;
+
+    readonly IMongoCollection<BsonDocument> _smartLinksCollection;
 
   public NotFoundStepDefinitions(WebApplicationFactory<Program> factory)
   {
@@ -27,11 +27,13 @@ public sealed class NotFoundStepDefinitions
     var database = client.GetDatabase(mongoDBSettings.DatabaseName);
     _smartLinksCollection = database.GetCollection<BsonDocument>(mongoDBSettings.CollectionName);
   }
+  
+  // Функция: Приложение отвечает 404 Not Found ошибкой на GET запрос,
+  // если для запрашиваемой умной ссылки не определены правила редиректа
 
   [Given("Для умной ссылки /non-exists не определены правила редиректа")]
   public void Given_Redirect_Rules_Are_Not_Defined_For_non_exists_SmartLink()
   {
-    // Given
   }
  
   [When("Клиент отправляет GET-запрос на url /non-exists")]
@@ -47,7 +49,8 @@ public sealed class NotFoundStepDefinitions
   }
 
   // Определение шагов завершено
-    // Функция: Приложение не отвечает 404 Not Found ошибкой на GET запрос,
+
+  // Функция: Приложение не отвечает 404 Not Found ошибкой на GET запрос,
   // если для запрашиваемой умной ссылки определены правила редиректа
 
   [Given("Для умной ссылки /exists определены правила редиректа")]
@@ -69,4 +72,19 @@ public sealed class NotFoundStepDefinitions
   }
 
   // Определение шагов завершено
+
+  // Сценарий: Приложение отвечает 404 Not Found ошибкой на GET запрос,
+  // если для запрашиваемой умной ссылки правила редиректа были помечены как удаленные
+
+  [Given("Для умной ссылки /deleted правила редиректа были помечены как удаленные")]
+  public async Task Given_Redirect_Rules_Are_Marked_As_Deleted_For_deleted_SmartLink()
+  {
+    await _smartLinksCollection.InsertOneAsync(BsonDocument.Parse("{ slug: \"/deleted\", \"state\": \"deleted\" }"));
+  }
+ 
+  [When("Клиент отправляет GET-запрос на url /deleted")]
+  public async Task A_Client_Sends_Get_Request_On_Url_deleted()
+  {
+    _response = await _client!.GetAsync("/deleted");
+  }
 }
